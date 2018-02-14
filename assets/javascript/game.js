@@ -1,45 +1,88 @@
-//Select character and move enemies to one column
+//Empty arrays for data access
+var planesWalkers = [];
+var selectedChar = [];
+var enemyArray = [];
+//================================
+var picked = false;
+//Flag for character select
+var Characters = 1;
+//================================
 
-var userChar = 1;
+//Pushed characters to array
+planesWalkers.push($('#ajani, #jace, #gideon, #chandra'));
+console.log(planesWalkers);
 
-if(userChar === 1 ){
+//================================
+
+
+//Select character
 	$('#ajani').on('click', function(){
-		$('#userCharTitle').text("Your Hero");
-		$('#ajani').appendTo('.userCharSpot');
-		$('#selectEnemyTitle').text("Select Enemy");
-		$('#jace, #gideon, #chandra').appendTo('.enemySelectSpot');
-		$('#headDisplay').text("");
-		userChar = 0;
-		console.log(userChar);
+		if(Characters === 1 ){
+			$('#userCharTitle').text("Your Hero");
+			$('#ajani').appendTo('.userCharSpot');
+			selectedChar.push($('#ajani'));
+			$('#selectEnemyTitle').text("Select Enemy");
+			$('#jace, #gideon, #chandra').appendTo('.enemySelectSpot');
+			$('#headDisplay').text("");
+			enemyArray.push($('#jace, #gideon, #chandra'));
+			Characters = 0;
+			picked = true;
+			console.log(selectedChar);
+			console.log(enemyArray);
+		}
 	})
-}
-		console.log(userChar)
-if(userChar === 1 ){
+
 	$('#jace').on('click', function(){
-		$('#jace').appendTo('.userCharSpot');
-		$('#selectEnemyTitle').text("Select Enemy");
-		$('#ajani, #gideon, #chandra').appendTo('.enemySelectSpot');
-		$('#headDisplay').text("");
-		userChar = 0;
+		if(Characters === 1 ){
+			$('#userCharTitle').text("Your Hero");
+			$('#jace').appendTo('.userCharSpot');
+			selectedChar.push($('#jace'));
+			$('#selectEnemyTitle').text("Select Enemy");
+			$('#ajani, #gideon, #chandra').appendTo('.enemySelectSpot');
+			$('#headDisplay').text("");
+			enemyArray.push($('#ajani, #gideon, #chandra'));
+			Characters = 0;
+			picked = true;
+			console.log(selectedChar);
+			console.log(enemyArray);
+		}
 	})
-}
 
-if(userChar === 1 ){
 	$('#gideon').on('click', function(){
-		$('#gideon').appendTo('.userCharSpot');
-		$('#selectEnemyTitle').text("Select Enemy");
-		$('#ajani, #jace, #chandra').appendTo('.enemySelectSpot');
-		$('#headDisplay').text("");
-		userChar = 0;
+		if(Characters === 1 ){
+			$('#userCharTitle').text("Your Hero");
+			$('#gideon').appendTo('.userCharSpot');
+			selectedChar.push($('#gideon'));
+			$('#selectEnemyTitle').text("Select Enemy");
+			$('#ajani, #jace, #chandra').appendTo('.enemySelectSpot');
+			$('#headDisplay').text("");
+			enemyArray.push($('#jace, #ajani, #chandra'));
+			Characters = 0;
+			picked = true;
+			console.log(selectedChar);
+			console.log(enemyArray);
+		}	
 	})
-}
 
-if(userChar === 1 ){
+
+
 	$('#chandra').on('click', function(){
-		$('#chandra').appendTo('.userCharSpot');
-		$('#selectEnemyTitle').text("Select Enemy");
-		$('#ajani, #gideon, #jace').appendTo('.enemySelectSpot');
-		$('#headDisplay').text("");
-		userChar = 0;
+		if(Characters === 1 ){
+			$('#userCharTitle').text("Your Hero");
+			$('#chandra').appendTo('.userCharSpot');
+			selectedChar.push($('#chandra'));
+			$('#selectEnemyTitle').text("Select Enemy");
+			$('#ajani, #gideon, #jace').appendTo('.enemySelectSpot');
+			$('#headDisplay').text("");
+			enemyArray.push($('#jace, #gideon, #ajani'))
+			Characters = 0;
+			picked = true;
+			console.log(selectedChar);
+			console.log(enemyArray);
+		}	
 	})
-}	
+
+	console.log(Characters);
+//=====================================================================
+	
+	
