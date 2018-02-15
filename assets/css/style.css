@@ -1,20 +1,35 @@
 body{
-	background-image: url("../images/magic.jpg");
+	background-image: url("../images/landscape.jpg");
 	color: white;
 }
+
+
+
 
 #ajani, #jace, #gideon, #chandra{
 	width: 100%;
 	border-bottom: 2px solid black;
 	border-radius: 30px;
+	color: white;
+	font-size: 20px;
+	transition: transform .2s;
+}
 
-	
-	
 
+
+#ajani, #jace, #gideon, #chandra: hover {
+	transform: scale(1.5);
 }
 
 img{
 	width: 100%;
 	border: 2px solid black;
 	border-radius: 30px;
+}
+
+
+
+.btn-danger{
+	background-color: gray;
+	width: 50%;
 }

@@ -1,5 +1,5 @@
 //Empty arrays for data access
-var selectedChar = [];
+var selectedChar;
 var enemyArray = [];
 var selectedEnemy;
 
@@ -7,12 +7,50 @@ var selectedEnemy;
 var characterFlag = 1;
 var enemyFlag = 0;
 
+
+	$('.btn-danger').css("visibility", "hidden")
 //Select character
+
+	$('#ajani').hover(function(){
+		if(characterFlag === 1){
+			$(this).css('transform', 'scale(1.1)');
+		}
+	},
+		function(){
+		$(this).css('transform', 'scale(1)');
+	});
+	$('#jace').hover(function(){
+		if(characterFlag === 1){
+			$(this).css('transform', 'scale(1.1)');
+		}
+	},
+		function(){
+		$(this).css('transform', 'scale(1)');
+	});
+	$('#gideon').hover(function(){
+		if(characterFlag === 1){
+			$(this).css('transform', 'scale(1.1)');
+		}
+	},
+		function(){
+		$(this).css('transform', 'scale(1)');
+	});
+	$('#chandra').hover(function(){
+		if(characterFlag === 1){
+			$(this).css('transform', 'scale(1.1)');
+		}
+	},
+		function(){
+		$(this).css('transform', 'scale(1)');
+	});
+
+	
+
 	$('#ajani').on('click', function(){
 		if(characterFlag === 1 ){
 			$('#userCharTitle').text("Your Hero");
 			$('#ajani').appendTo('.userCharSpot');
-			selectedChar.push($('#ajani'));
+			selectedChar = this;
 			$('#selectEnemyTitle').text("Select Enemy");
 			$('#jace, #gideon, #chandra').appendTo('.enemySelectSpot');
 			$('#headDisplay').text("");
@@ -26,7 +64,7 @@ var enemyFlag = 0;
 		if(characterFlag === 1 ){
 			$('#userCharTitle').text("Your Hero");
 			$('#jace').appendTo('.userCharSpot');
-			selectedChar.push($('#jace'));
+			selectedChar = this;
 			$('#selectEnemyTitle').text("Select Enemy");
 			$('#ajani, #gideon, #chandra').appendTo('.enemySelectSpot');
 			$('#headDisplay').text("");
@@ -38,9 +76,10 @@ var enemyFlag = 0;
 
 	$('#gideon').on('click', function(){
 		if(characterFlag === 1 ){
+			$('.btn-danger').toggle();
 			$('#userCharTitle').text("Your Hero");
 			$('#gideon').appendTo('.userCharSpot');
-			selectedChar.push($('#gideon'));
+			selectedChar = this;
 			$('#selectEnemyTitle').text("Select Enemy");
 			$('#ajani, #jace, #chandra').appendTo('.enemySelectSpot');
 			$('#headDisplay').text("");
@@ -56,7 +95,7 @@ var enemyFlag = 0;
 		if(characterFlag === 1 ){
 			$('#userCharTitle').text("Your Hero");
 			$('#chandra').appendTo('.userCharSpot');
-			selectedChar.push($('#chandra'));
+			selectedChar = this;
 			$('#selectEnemyTitle').text("Select Enemy");
 			$('#ajani, #gideon, #jace').appendTo('.enemySelectSpot');
 			$('#headDisplay').text("");
@@ -70,20 +109,33 @@ function selectEnemy(){
 	for(var i = 0; i < enemyArray.length; i++ ){
 		enemyArray[i].click(function(){
 			if(enemyFlag === 0){
-			$('#defenderCharTitle').text("Defender");
-			$('.defenderCharSpot').append(this);
-			selectedEnemy = this;
-			enemyFlag = 1;
-			console.log(selectedEnemy);
+				$('.btn-danger').css('visibility','visible')
+				$('#defenderCharTitle').text("Defender");
+				$('.defenderCharSpot').append(this);
+				selectedEnemy = this;
+				enemyFlag = 1;
+				console.log(selectedEnemy);
+				battle();
 			}
-
-			battle();
 		})		 
 	}
 }
 		
 
 function battle(){
-	var enemyhp = selectedEnemy.attr('data-hp');
-	console.log(enemyhp);
-	}
+	var selectedCharHp = selectedChar.getAttribute('data-hp');
+	var selectedCharAttack = selectedChar.getAttribute('data-ap');
+	var enemyhp = selectedEnemy.getAttribute('data-hp');
+	var enemyAttack = selectedEnemy.getAttribute('data-cp');
+	$('.btn-danger').click(function(){
+		enemyhp -= selectedCharAttack;
+		selectedCharHp -= enemyAttack;
+		console.log(enemyhp);
+		console.log(selectedCharHp);
+	})
+}
+
+
+
+
+	
