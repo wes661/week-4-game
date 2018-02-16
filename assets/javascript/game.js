@@ -1,14 +1,19 @@
-//Empty arrays for data access
+//Empty arrays and variables for data access
 var selectedChar;
 var enemyArray = [];
+var deadOnes = [];
 var selectedEnemy;
-
+var attackCount = 0
 //Flag for character/enemy select
 var characterFlag = 1;
 var enemyFlag = 0;
+var kills = 0;
 
 
-	$('.btn-danger').css("visibility", "hidden")
+
+
+
+	
 //Select character
 
 	$('#ajani').hover(function(){
@@ -76,7 +81,6 @@ var enemyFlag = 0;
 
 	$('#gideon').on('click', function(){
 		if(characterFlag === 1 ){
-			$('.btn-danger').toggle();
 			$('#userCharTitle').text("Your Hero");
 			$('#gideon').appendTo('.userCharSpot');
 			selectedChar = this;
@@ -108,28 +112,56 @@ var enemyFlag = 0;
 function selectEnemy(){
 	for(var i = 0; i < enemyArray.length; i++ ){
 		enemyArray[i].click(function(){
-			if(enemyFlag === 0){
-				$('.btn-danger').css('visibility','visible')
-				$('#defenderCharTitle').text("Defender");
-				$('.defenderCharSpot').append(this);
-				selectedEnemy = this;
-				enemyFlag = 1;
-				console.log(selectedEnemy);
-				battle();
+			// If the enemy that was clicked (this) is in the array of deadOnes then 
+			// he is dead and this code should not run
+			var enemyId = this.getAttribute('id');
+			if(deadOnes.indexOf(enemyId) < 0){
+				if(enemyFlag === 0){
+					$('.btn-danger').show('slow');
+					$('#defenderCharTitle').text("Defender");
+					$('.defenderCharSpot').append(this);
+					selectedEnemy = this;
+					enemyFlag = 1;
+					console.log(selectedEnemy);
+					battle();
+				}
 			}
-		})		 
+		}); 
 	}
 }
 		
-
+//Battle portion and winnig or losing
 function battle(){
 	var selectedCharHp = selectedChar.getAttribute('data-hp');
 	var selectedCharAttack = selectedChar.getAttribute('data-ap');
 	var enemyhp = selectedEnemy.getAttribute('data-hp');
 	var enemyAttack = selectedEnemy.getAttribute('data-cp');
-	$('.btn-danger').click(function(){
-		enemyhp -= selectedCharAttack;
+	$('.btn-danger').unbind('click').click(function(){
+		attackCount++
+		enemyhp -= attackCount* selectedCharAttack;
 		selectedCharHp -= enemyAttack;
+		$(selectedChar).find('.hpContainer').text(selectedCharHp);
+		$(selectedEnemy).find('.hpContainer').text(enemyhp);
+		if(enemyhp <= 0){
+			kills++
+			alert("You win!")
+			alert("Select new enemy!")
+			$('#defeatedEnemyTitle').text("Defeated Enemies");
+			$(selectedEnemy).fadeOut('slow');
+			$('.btn-danger').hide('slow');
+			$(selectedEnemy).appendTo('.defeatedEnemySpot');
+			$(selectedEnemy).fadeIn('slow');
+			enemyFlag = 0;
+			deadOnes.push(selectedEnemy.getAttribute('id'));
+			selectEnemy();
+		}
+		if(kills === 3){
+			alert("You are the champ!")
+			console.log(kills)
+		}
+		console.log(selectedCharAttack);
+		console.log(selectedChar);
+		console.log(attackCount)
 		console.log(enemyhp);
 		console.log(selectedCharHp);
 	})
