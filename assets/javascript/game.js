@@ -196,6 +196,8 @@ function battle(){
 			$('.text3').hide('fast');
 			$('.text4').html("You have been defeated!")
 			$('.text4').fadeIn('slow');
+			$('.btn-danger').hide('slow');
+			$(selectedChar).fadeOut('slow');
 		}
 	})
 }
