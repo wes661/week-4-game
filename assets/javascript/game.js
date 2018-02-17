@@ -4,13 +4,34 @@ var enemyArray = [];
 var deadOnes = [];
 var selectedEnemy;
 var attackCount = 0
-//Flag for character/enemy select
 var characterFlag = 1;
 var enemyFlag = 0;
 var kills = 0;
 
 
+//reset not working
+function reset(){
+	selectedChar;
+	enemyArray = [];
+	deadOnes = [];
+	selectedEnemy;
+	attackCount = 0
+	characterFlag = 1;
+	enemyFlag = 0;
+	kills = 0;
 
+	$('#ajani').appendTo('.char1');
+	$('#jace').appendTo('.char2');
+	$('#gideon').appendTo('.char3');
+	$('#chandra').appendTo('.char4');
+	$('#defeatedEnemyTitle').hide('fast');
+	$('#defenderCharTitle').hide('fast');
+	$('#selectEnemyTitle').hide('fast');
+	$('#userCharTitle').hide('fast');
+}
+
+
+	
 
 
 	
@@ -50,7 +71,7 @@ var kills = 0;
 	});
 
 	
-
+	
 	$('#ajani').on('click', function(){
 		if(characterFlag === 1 ){
 			$('#userCharTitle').text("Your Hero");
@@ -64,6 +85,8 @@ var kills = 0;
 			selectEnemy();
 		}
 	})
+	
+	
 
 	$('#jace').on('click', function(){
 		if(characterFlag === 1 ){
@@ -136,19 +159,26 @@ function battle(){
 	var selectedCharAttack = selectedChar.getAttribute('data-ap');
 	var enemyhp = selectedEnemy.getAttribute('data-hp');
 	var enemyAttack = selectedEnemy.getAttribute('data-cp');
+	$('.text1').hide('slow');
 	$('.btn-danger').unbind('click').click(function(){
 		attackCount++
 		enemyhp -= attackCount* selectedCharAttack;
-		selectedCharHp -= enemyAttack;
+		selectedCharHp -= enemyAttack;	
 		$(selectedChar).find('.hpContainer').text(selectedCharHp);
 		$(selectedEnemy).find('.hpContainer').text(enemyhp);
+	    $('.text2').show('fast')
+		$('.text2').text("You hit for " + attackCount* selectedCharAttack + " damage");
+		$('.text3').show('fast')
+		$('.text3').text("Enemy hit you for " + enemyAttack + " damage");
 		if(enemyhp <= 0){
 			kills++
-			alert("You win!")
-			alert("Select new enemy!")
-			$('#defeatedEnemyTitle').text("Defeated Enemies");
+			$('.text1').html("Enemy Defeated! " + "<br>" + " Select New Enemy!");
+			$('.text1').fadeIn('slow');
+			$('#defeatedEnemyTitle').text("Graveyard");
 			$(selectedEnemy).fadeOut('slow');
 			$('.btn-danger').hide('slow');
+			$('.text2').hide('fast');
+			$('.text3').hide('fast');
 			$(selectedEnemy).appendTo('.defeatedEnemySpot');
 			$(selectedEnemy).fadeIn('slow');
 			enemyFlag = 0;
@@ -156,14 +186,16 @@ function battle(){
 			selectEnemy();
 		}
 		if(kills === 3){
-			alert("You are the champ!")
-			console.log(kills)
+			$('.text1').html("You are the champ!");
+			$('.text1').fadeIn('slow');
+			//reset();
 		}
-		console.log(selectedCharAttack);
-		console.log(selectedChar);
-		console.log(attackCount)
-		console.log(enemyhp);
-		console.log(selectedCharHp);
+		if(selectedCharHp <= 0){
+			$('.text2').hide('fast');
+			$('.text3').hide('fast');
+			$('.text4').html("You have been defeated!")
+			$('.text4').fadeIn('slow');
+		}
 	})
 }
 
