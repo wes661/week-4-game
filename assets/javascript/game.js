@@ -163,7 +163,8 @@ function battle(){
 	$('.btn-danger').unbind('click').click(function(){
 		attackCount++
 		enemyhp -= attackCount* selectedCharAttack;
-		selectedCharHp -= enemyAttack;	
+		selectedCharHp -= enemyAttack;
+		selectedChar.setAttribute('data-hp', selectedCharHp);	
 		$(selectedChar).find('.hpContainer').text(selectedCharHp);
 		$(selectedEnemy).find('.hpContainer').text(enemyhp);
 	    $('.text2').show('fast')
